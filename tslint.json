@@ -1,0 +1,9 @@
+{
+  "extends": ["tslint-config-swimlane/base"],
+  "rules": {
+    "no-implicit-dependencies": [false, "dev"],
+    "typedef": true,
+    "no-floating-promises": false,
+    "array-type": [true, "array-simple"]
+  }
+}
