@@ -28,7 +28,7 @@
     "reset": "git clean -dfx && git reset --hard && npm i",
     "clean": "trash build test",
     "prenp": "npm-run-all build:*",
-    "np": "np --no-cleanup --yolo",
+    "np": "np",
     "prepack": "npm-run-all build:*"
   },
   "scripts-info": {
