@@ -6,11 +6,11 @@
 
 ## Goals
 
-Samir uses an incremental implementation of the MurmurHash3 (32-bit) hashing algorithm and a plugable processing system to convert JS values and objects to an non-cryptographic hash.  Co-worker of [Smykowski](https://github.com/Hypercubed/smykowski) and [Milton](https://github.com/Hypercubed/milton).
+Samir uses an incremental implementation of the MurmurHash3 (32-bit) hashing algorithm and a plugable processing system to convert JS values and objects to a non-cryptographic hash.  Co-worker of [Smykowski](https://github.com/Hypercubed/smykowski) and [Milton](https://github.com/Hypercubed/milton).
 
 ## Features
 
-- Extendable
+- Extensible
 - Incremental
 
 ## Install
@@ -53,7 +53,6 @@ const obj: any = {
   false: false,
   true: true,
   undef: undefined,
-  error: new Error('bad'),
   regexp: /.*\n/g,
   function: function Yes() { /* noop */ },
   map: new Map([['key1', 'value1'], ['key2', 'value2']]),
@@ -72,7 +71,7 @@ console.log(hasher.hash(obj));
 prints:
 
 ```
-3408409910
+1394490113
 ```
 
 Incremtental hashing:
@@ -92,7 +91,7 @@ console.log(hasher.result());  // Same as hasher.hash('Hello World')
 
 ## Description
 
-`Samir` is an interface for hashing JS objects and values.  In `Samir` we have a concept of plugins and presets. Plugins are functions that define a "replacer" functions.  Replacer functions accept each value and returns a stringified result.  The value returned by the replacer function replaces the original value in the hashed result. Values returned from one replacer are passed down to the next untill the replacer returns a string.  Once a string is returned this string value is incrementally added to the hash.
+`Samir` is an interface for hashing JS objects and values.  In `Samir` we have a concept of plugins and presets. Plugins are functions that define a "replacer" functions.  Replacer functions accept each value and returns a stringified result (or the original value).  The value returned by the replacer function replaces the original value in the hashed result. Values returned from one replacer are passed down to the next untill the replacer returns a string.  Once a string is returned this string value is incrementally added to the hash.
 
 Plugins are added using the `.add` method on a `Samir` instance.  The order of the plugins does matter.  The first plugin to return a string wins.
 

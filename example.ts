@@ -31,7 +31,6 @@ const obj: any = {
   false: false,
   true: true,
   undef: undefined,
-  error: new Error('bad'),
   regexp: /.*\n/g,
   function: function Yes() { /* noop */ },
   map: new Map([['key1', 'value1'], ['key2', 'value2']]),
