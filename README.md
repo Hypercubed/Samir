@@ -2,7 +2,7 @@
 
 *OK, I'll do it.*
 
-![](https://imgflip.com/i/3ykd0c)
+![](https://i.imgflip.com/3ykd0c.jpg)
 
 ## Goals
 
