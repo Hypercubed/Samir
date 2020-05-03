@@ -31,17 +31,6 @@
     "np": "np",
     "prepack": "npm-run-all build:*"
   },
-  "scripts-info": {
-    "info": "Display information about the package scripts",
-    "build": "Clean and rebuild the project",
-    "fix": "Try to automatically fix any linting problems",
-    "test": "Lint and unit test the project",
-    "watch": "Watch and rebuild the project on save, then rerun relevant tests",
-    "cov": "Rebuild, run tests, then create and open the coverage report",
-    "doc": "Generate HTML API documentation and open it in a browser",
-    "doc:json": "Generate API documentation in typedoc JSON format",
-    "reset": "Delete all untracked files and reset the repo to the last commit"
-  },
   "engines": {
     "node": ">=8.9"
   },
@@ -51,14 +40,13 @@
     "imurmurhash": "^0.1.4"
   },
   "devDependencies": {
-    "@bitjson/npm-scripts-info": "^1.0.0",
     "@bitjson/typedoc": "^0.15.0-0",
     "@hypercubed/milton": "^1.1.0",
     "@types/jest": "^25.1.0",
     "chuhai": "^1.2.0",
     "hash-anything": "^1.2.2",
     "hash-obj": "^3.0.0",
-    "jest": "^25.1.0",
+    "jest": "^25.5.4",
     "np": "^5.2.1",
     "npm-run-all": "^4.1.5",
     "object-hash": "^2.0.3",
