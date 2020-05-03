@@ -27,7 +27,8 @@
     "doc:json": "typedoc src/ --exclude **/*.spec.ts --target ES6 --mode file --json build/docs/typedoc.json",
     "reset": "git clean -dfx && git reset --hard && npm i",
     "clean": "trash build test",
-    "prenp": "npm-run-all build:*",
+    "changelog": "chg release -y && git add -A CHANGELOG.md",
+    "version": "run-s changelog build:*",
     "np": "np",
     "prepack": "npm-run-all build:*"
   },
@@ -43,6 +44,7 @@
     "@bitjson/typedoc": "^0.15.0-0",
     "@hypercubed/milton": "^1.1.0",
     "@types/jest": "^25.1.0",
+    "chg": "^0.4.0",
     "chuhai": "^1.2.0",
     "hash-anything": "^1.2.2",
     "hash-obj": "^3.0.0",
