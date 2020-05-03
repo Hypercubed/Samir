@@ -26,11 +26,9 @@ const N = 10;
 const A = new Array(N);
 
 const arr = () => {
-  return Array.from(A, () => { 
-    return {
-      string:  '' + Math.random(),
-      number: Math.random()
-    };
+  return Array.from(A, () => {
+    const r = Math.random();
+    return r < 0.5 ? `${r}` : r;
   });
 }
 
@@ -47,14 +45,14 @@ suite('hash object', s => {
     ans = null;
   });
 
-  s.burn('burn each', () => {
-    ans =  JSON.stringify(obj);
-    ans += hasher.hash(obj);
-    ans += objectHash(obj);
-    ans += hashObject(obj);
-    ans += sha1(obj);
-    ans += milton.stringify(obj);
-  });
+  // s.burn('burn each', () => {
+  //   ans =  JSON.stringify(obj);
+  //   ans += hasher.hash(obj);
+  //   ans += objectHash(obj);
+  //   ans += hashObject(obj);
+  //   ans += sha1(obj);
+  //   ans += milton.stringify(obj);
+  // });
 
   s.bench('JSON stringify', () => {
     ans =  murmurHash3.reset().hash(JSON.stringify(obj)).result();
@@ -64,11 +62,11 @@ suite('hash object', s => {
     ans = hasher.hash(obj);
   });
 
-  s.bench('objectHash', () => {
+  s.bench('object-hash', () => {
     ans = objectHash(obj);
   });
 
-  s.bench('hashObject', () => {
+  s.bench('hash-obj', () => {
     ans = hashObject(obj);
   });
 

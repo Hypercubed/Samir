@@ -18,21 +18,22 @@ const circularError =
   ' plugin does not accept circular structures.  Missing the `circular` plugin?';
 
 const defaultPrimitivesOptions = {
-  types: ['number', 'boolean', 'bigint', 'undefined']
+  types: ['number', 'boolean', 'bigint', 'undefined', 'null']
 };
 
 /**
  * Processes primitive JS values,
  * generates a hash using the type and the stringified value
  */
-export const primitives = (_options: any = defaultPrimitivesOptions, _v: any, h: StringifyFunction) => {
-  _options = {
+export const primitives = (options: any = defaultPrimitivesOptions, _v: any, h: StringifyFunction) => {
+  options = {
     ...defaultPrimitivesOptions,
-    _options
+    options
   };
+  const checkNull = ~options.types.indexOf('null');
   return (s: any) => {
     const t = typeof s;
-    if (_options.types.includes(t) || s === null) {
+    if (~options.types.indexOf(t) || (checkNull && s === null)) {
       h(t);
       return String(s);
     }
@@ -40,14 +41,12 @@ export const primitives = (_options: any = defaultPrimitivesOptions, _v: any, h:
   };
 };
 
-
-let symbolMap: Map<symbol, string>;
-
 /**
  * Processes symbols,
  * Global symbols are repeatable,
  * Ordinary symbols are repeatable within an environment
  */
+let symbolMap: Map<symbol, string>;
 export const symbols = (_options: any, _v: any, h: StringifyFunction) => {
   symbolMap = symbolMap || new Map();
   return (s: any) => {
@@ -128,10 +127,11 @@ export const arrayDecender = (_options: any, _v: any, h: StringifyFunction) => {
     seen.push(s);
     const t = toString.call(s);
     if (t === '[object Array]') {
-      s.forEach((vv: any, i: number) => {
-        h(String(i));
-        h(vv, [...path, i]);
-      });
+      const len = s.length;
+      for (let i = 0; i < len; i++) {
+        h('' + i);
+        h(s[i], path.concat([i]));
+      }
       return t;
     }
     seen.pop();
@@ -158,10 +158,12 @@ export const objectDecender = (
       }
       seen.push(s);
       const keys = Object.keys(s).sort();
-      keys.forEach((k: any) => {
+      const len = keys.length;
+      for (let i = 0; i < len; i++) {
+        const k = keys[i];
         h(k);
-        h(s[k], [...path, k]);
-      });
+        h(s[k], path.concat([k]));
+      }
       seen.pop();
       return t;
     }
@@ -201,7 +203,7 @@ export const setMap = (_options: any, _root: any, h: StringifyFunction) => {
       const keys = Array.from(s.keys()).sort();
       keys.forEach((k: any) => {
         h(k);
-        h(s.get(k), [...path, k]);
+        h(s.get(k), path.concat([k]));
       });
       seen.pop();
       return 'Map';
@@ -213,7 +215,7 @@ export const setMap = (_options: any, _root: any, h: StringifyFunction) => {
       seen.push(s);
       Array.from(s).forEach((vv: any, i: number) => {
         h(String(i));
-        h(vv, [...path, i]);
+        h(vv, path.concat([i]));
       });
       seen.pop();
       return 'Set';

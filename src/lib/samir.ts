@@ -28,13 +28,19 @@ export class Samir {
     const len = this._plugins.length;
 
     const _h = (s: any, path: Path = []) => {
+      let t = typeof s;
+      if (t === 'string') { // fast path for strings
+        this._m.hash(s);
+        return;
+      }
+
       let v = s;
       let i = 0;
-      while (i < len && typeof v !== 'string') {
+      while (i < len && t !== 'string') {
         // tslint:disable-next-line: tsr-detect-unsafe-properties-access
         v = replacers[i++](v, path, s);
+        t = typeof v;
       }
-      const t = typeof v;
       if (t !== 'string') {
         throw new Error(
           `Unable to compute hash for this type (${
