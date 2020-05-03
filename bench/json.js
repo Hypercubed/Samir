@@ -22,28 +22,28 @@ milton.add(miltonObjectDecender);
 
 const murmurHash3 = new MurmurHash3();
 
+const N = 10;
+const A = new Array(N);
+
+const arr = () => {
+  return Array.from(A, () => { 
+    return {
+      string:  '' + Math.random(),
+      number: Math.random()
+    };
+  });
+}
+
 suite('hash object', s => {
   const obj = { 
-    arr: new Array(100).map(() => { 
-      return {
-        strings:  '' + Math.random(),
-        numbers: Math.random()
-      };
-    })
+    arr: arr()
   };
 
   let ans = null;
 
   s.cycle(() => {
     assert(typeof ans === 'number' || typeof ans === 'string');
-
-    obj.arr = new Array(100).map(() => { 
-      return {
-        strings:  '' + Math.random(),
-        numbers: Math.random()
-      };
-    });
-
+    obj.arr = arr();
     ans = null;
   });
 
