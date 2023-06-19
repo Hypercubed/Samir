@@ -37,7 +37,7 @@
   },
   "dependencies": {
     "@types/imurmurhash": "^0.1.0",
-    "@types/node": "^13.13.4",
+    "@types/node": "^18.0.0",
     "imurmurhash": "^0.1.4"
   },
   "devDependencies": {
